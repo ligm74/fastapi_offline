@@ -34,6 +34,24 @@ class SDistWrapper(sdist):
 
         sdist.run(self)
 
+def run() -> None:
+    "Download files into static/, then pass through to normal install"
+    from fastapi_offline.consts import FAVICON, REDOC_JS, SWAGGER_CSS, SWAGGER_JS
+
+    # Find ourself
+
+    static_path = BASE_PATH / "fastapi_offline" / "static"
+    static_path.mkdir(exist_ok=True)
+
+    # Download files
+    for download in (
+        SWAGGER_JS,
+        SWAGGER_CSS,
+        REDOC_JS,
+        FAVICON,
+    ):
+        urlretrieve(download, static_path / download.split("/")[-1])
+
 
 setup(
     name="fastapi_offline",
@@ -57,5 +75,5 @@ setup(
     tests_require=TEST_DEPS,
     setup_requires=[FASTAPI_VER],
     extras_require={"test": TEST_DEPS},
-    cmdclass={"sdist": SDistWrapper}
+    cmdclass={"install": run}
 )
