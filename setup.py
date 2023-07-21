@@ -32,7 +32,7 @@ class SDistWrapper(sdist):
         ):
             urlretrieve(download, static_path / download.split("/")[-1])
 
-        #sdist.run(self)
+        sdist.run(self)
 
 setup(
     name="fastapi_offline",
