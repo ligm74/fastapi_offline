@@ -56,5 +56,5 @@ setup(
     tests_require=TEST_DEPS,
     setup_requires=[FASTAPI_VER],
     extras_require={"test": TEST_DEPS},
-    cmdclass={"install": SDistWrapper}
+    cmdclass={"sdist": SDistWrapper}
 )
